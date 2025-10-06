@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 60" role="img" aria-labelledby="title">
+  <title id="title">BBB Accredited Business badge placeholder</title>
+  <rect width="160" height="60" rx="12" fill="#e8ecf4"/>
+  <circle cx="30" cy="30" r="18" fill="#0b1f3a" opacity="0.85"/>
+  <text x="80" y="35" font-family="'Segoe UI', Arial, sans-serif" font-size="16" fill="#0b1f3a" font-weight="600" text-anchor="middle">BBB Rated A+</text>
+</svg>

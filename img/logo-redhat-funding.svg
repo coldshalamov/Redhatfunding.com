@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 60" role="img" aria-labelledby="title desc">
+  <title id="title">RedHat Funding Logo Placeholder</title>
+  <desc id="desc">Stylized placeholder logo for RedHat Funding featuring a red hat icon.</desc>
+  <rect width="220" height="60" rx="12" fill="#0b1f3a"/>
+  <path d="M50 30c0-11 9-20 20-20s20 9 20 20" fill="#c41230"/>
+  <text x="110" y="36" font-family="'Segoe UI', Arial, sans-serif" font-size="24" fill="#ffffff" text-anchor="middle" font-weight="600">RedHat Funding</text>
+</svg>

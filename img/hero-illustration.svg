@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 360" role="img" aria-labelledby="title desc">
+  <title id="title">Business owners celebrating funding approval</title>
+  <desc id="desc">Minimal illustration placeholder of diverse business owners celebrating funding approval.</desc>
+  <rect width="600" height="360" fill="#e8eff9"/>
+  <circle cx="150" cy="180" r="90" fill="#c41230" opacity="0.15"/>
+  <circle cx="420" cy="120" r="70" fill="#0b1f3a" opacity="0.2"/>
+  <rect x="130" y="200" width="340" height="80" rx="18" fill="#0b1f3a" opacity="0.85"/>
+  <text x="300" y="245" font-family="'Segoe UI', Arial, sans-serif" font-size="32" fill="#ffffff" text-anchor="middle">Fast, Friendly Funding</text>
+</svg>
