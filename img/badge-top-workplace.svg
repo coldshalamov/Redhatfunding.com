@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 60" role="img" aria-labelledby="title">
-  <title id="title">Top Workplace badge placeholder</title>
-  <rect width="160" height="60" rx="12" fill="#fff4d6"/>
-  <polygon points="20,10 50,10 40,50 30,50" fill="#f4a300"/>
-  <text x="100" y="30" font-family="'Segoe UI', Arial, sans-serif" font-size="16" fill="#a86400" font-weight="600" text-anchor="middle">Top Workplace</text>
-</svg>

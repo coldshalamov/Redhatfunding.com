@@ -1,0 +1,27 @@
+:root {
+  --brand: #cc0000;
+  --ink: #0b1320;
+  --muted: #5b6471;
+  --line: #e6eaf0;
+  --radius-lg: 24px;
+  --shadow-soft: 0 12px 36px rgba(11, 19, 32, 0.08);
+}
+
+body {
+  background-color: #f6f8fb;
+  color: var(--ink);
+}
+
+a {
+  color: inherit;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid color-mix(in oklab, var(--brand), white 30%);
+  outline-offset: 3px;
+  border-radius: 12px;
+}
