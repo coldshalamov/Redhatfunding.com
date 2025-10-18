@@ -2,6 +2,8 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import Home from '@/routes/Home';
 import Apply from '@/routes/Apply';
 import Admin from '@/routes/Admin';
+import Privacy from '@/routes/Privacy';
+import Terms from '@/routes/Terms';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ToastProvider from '@/components/ToastProvider';
@@ -24,6 +26,8 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/apply" element={<Apply />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/terms" element={<Terms />} />
           </Routes>
         </main>
         <Footer />

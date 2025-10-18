@@ -90,6 +90,7 @@ const Apply = () => {
   const [isComplete, setComplete] = useState(false);
   const { notify } = useToast();
   const submissionStart = useRef(Date.now());
+  const formspreeEndpoint = import.meta.env.VITE_FORMSPREE_ENDPOINT;
 
   useEffect(() => {
     submissionStart.current = Date.now();
@@ -158,12 +159,33 @@ const Apply = () => {
       }
       try {
         setSubmitting(true);
-        const response = await api.post('/api/leads', {
-          ...data,
-          phone: normalizePhone(data.phone),
-        });
-        notify('Thanks! A specialist will reach out shortly.');
-        logAnalyticsEvent('application_submitted', { leadId: response.data.lead_id });
+        if (formspreeEndpoint) {
+          const response = await fetch(formspreeEndpoint, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Accept: 'application/json',
+            },
+            body: JSON.stringify({
+              ...data,
+              phone: normalizePhone(data.phone),
+              submittedAt: new Date().toISOString(),
+              source: 'redhat-funding-site',
+            }),
+          });
+          if (!response.ok) {
+            throw new Error('Unable to send your application. Please try again.');
+          }
+          notify('Thanks! A specialist will reach out shortly.');
+          logAnalyticsEvent('application_submitted', { transport: 'formspree' });
+        } else {
+          const response = await api.post('/api/leads', {
+            ...data,
+            phone: normalizePhone(data.phone),
+          });
+          notify('Thanks! A specialist will reach out shortly.');
+          logAnalyticsEvent('application_submitted', { leadId: response.data.lead_id, transport: 'api' });
+        }
         setComplete(true);
         clearApplication();
         reset({ ...defaultValues, submissionStartedAt: Date.now(), phone: '', companyName: '', industry: '', zipcode: '', firstName: '', lastName: '', email: '' });
