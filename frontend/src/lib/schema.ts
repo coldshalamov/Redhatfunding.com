@@ -19,6 +19,9 @@ export const applicationSchema = z.object({
   lastName: z.string().min(1, 'Last name is required'),
   email: z.string().email('Enter a valid email'),
   phone: z.string().regex(/^\d{10}$/, 'Enter a valid phone number'),
+  consent: z
+    .boolean()
+    .refine((value) => value === true, { message: 'You must agree before submitting.' }),
   honeypot: z.string().optional(),
   submissionStartedAt: z.number().optional(),
 });

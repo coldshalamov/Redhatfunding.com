@@ -18,7 +18,7 @@ const steps: StepDefinition[] & { fields: Array<keyof ApplicationSchema> }[] = [
   { id: 'amount', title: 'Amount & use', fields: ['amountRequested', 'useOfFunds'] },
   { id: 'time', title: 'Time in business', fields: ['startMonth', 'startYear', 'hasBusinessAccount'] },
   { id: 'details', title: 'Business details', fields: ['companyName', 'industry', 'monthlyRevenue', 'zipcode'] },
-  { id: 'contact', title: 'Contact', fields: ['firstName', 'lastName', 'email', 'phone'] },
+  { id: 'contact', title: 'Contact', fields: ['firstName', 'lastName', 'email', 'phone', 'consent'] },
 ];
 
 const defaultValues: ApplicationSchema = {
@@ -36,6 +36,7 @@ const defaultValues: ApplicationSchema = {
   lastName: '',
   email: '',
   phone: '',
+  consent: false,
   honeypot: '',
   submissionStartedAt: Date.now(),
 };
@@ -199,6 +200,7 @@ const Apply = () => {
       { label: 'Contact', value: `${values.firstName} ${values.lastName}`, stepIndex: 4 },
       { label: 'Email', value: values.email, stepIndex: 4 },
       { label: 'Phone', value: formatPhone(values.phone), stepIndex: 4 },
+      { label: 'Contact consent', value: values.consent ? 'Yes' : 'No', stepIndex: 4 },
     ],
     [values]
   );
@@ -483,10 +485,26 @@ const Apply = () => {
                       ))}
                     </ul>
                   </div>
-                  <div className="rounded-3xl border border-line bg-white p-6 text-sm text-muted">
+                  <div className="rounded-3xl border border-line bg-white p-6 text-sm text-muted space-y-4">
                     <p>
                       By submitting, you agree to be contacted by RedHat Funding and its lending partners via phone, SMS, and email.
                     </p>
+                    <label htmlFor="consent" className="flex items-start gap-3 text-ink">
+                      <input
+                        id="consent"
+                        type="checkbox"
+                        className="mt-1 h-4 w-4 rounded border-line text-brand focus:ring-brand"
+                        {...register('consent')}
+                      />
+                      <span className="text-sm text-ink">
+                        I confirm that I consent to receive communications about my application.
+                      </span>
+                    </label>
+                    {formState.errors.consent && (
+                      <p className="text-sm text-error" role="alert">
+                        {formState.errors.consent.message}
+                      </p>
+                    )}
                   </div>
                 </aside>
               </div>
