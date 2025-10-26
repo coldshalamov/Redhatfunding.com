@@ -1,17 +1,27 @@
+@import url('./styles/theme.css');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import url('./styles/theme.css');
 
 body {
   min-height: 100vh;
 }
 
 .btn-primary {
-  @apply inline-flex items-center justify-center rounded-3xl bg-brand px-6 py-3 text-base font-semibold text-white shadow-lift transition hover:bg-brand/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand;
+  @apply inline-flex items-center justify-center rounded-3xl bg-brand px-6 py-3 text-base font-semibold text-white shadow-lift transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform;
+}
+
+.btn-primary:hover {
+  background-color: color-mix(in srgb, var(--brand) 90%, black 10%);
 }
 
 .tile {
   @apply rounded-3xl border border-line bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-lift focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand;
+}
+
+header img {
+  box-shadow: none !important;
+  filter: none !important;
 }

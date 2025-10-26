@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 from logging.config import fileConfig
 
 from sqlalchemy import pool
@@ -28,6 +29,11 @@ def run_migrations_offline() -> None:
 
 
 def run_migrations_online() -> None:
+    def process_migrations(sync_connection) -> None:
+        context.configure(connection=sync_connection, target_metadata=Base.metadata)
+        with context.begin_transaction():
+            context.run_migrations()
+
     connectable = async_engine_from_config(
         config.get_section(config.config_ini_section),
         prefix='sqlalchemy.',
@@ -36,12 +42,7 @@ def run_migrations_online() -> None:
 
     async def do_run_migrations() -> None:
         async with connectable.connect() as connection:
-            await connection.run_sync(Base.metadata.create_all)
-            context.configure(connection=connection, target_metadata=Base.metadata)
-
-            await connection.run_sync(context.run_migrations)
-
-    import asyncio
+            await connection.run_sync(process_migrations)
 
     asyncio.run(do_run_migrations())
 
