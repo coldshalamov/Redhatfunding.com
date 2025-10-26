@@ -12,6 +12,7 @@ import { loadApplication, saveApplication, clearApplication } from '@/lib/storag
 import api from '@/lib/api';
 import { useToast } from '@/components/ToastProvider';
 import { logAnalyticsEvent } from '@/lib/analytics';
+import { buildPageMetadata } from '@/lib/seo';
 
 const steps: StepDefinition[] & { fields: Array<keyof ApplicationSchema> }[] = [
   { id: 'business-type', title: 'Business type', fields: ['businessType'] },
@@ -75,6 +76,19 @@ const months = [
 const years = Array.from({ length: 40 }, (_, index) => {
   const year = new Date().getFullYear() - index;
   return { value: String(year), label: String(year) };
+});
+
+const applyMetadata = buildPageMetadata({
+  title: 'Apply',
+  description: "Complete RedHat Funding's streamlined funding application in just a few steps.",
+  path: '/apply',
+});
+
+const applySuccessMetadata = buildPageMetadata({
+  title: 'Application received',
+  description:
+    'Thanks for applying to RedHat Funding. A funding specialist will review your information and reach out within one business day.',
+  path: '/apply',
 });
 
 const Apply = () => {
@@ -207,7 +221,20 @@ const Apply = () => {
     return (
       <section className="bg-[#f9fafc] py-20">
         <Helmet>
-          <title>Application received — RedHat Funding</title>
+          <title>{applySuccessMetadata.title}</title>
+          <meta name="description" content={applySuccessMetadata.description} />
+          <meta name="keywords" content={applySuccessMetadata.keywords.join(', ')} />
+          <link rel="canonical" href={applySuccessMetadata.url} />
+          <meta property="og:title" content={applySuccessMetadata.title} />
+          <meta property="og:description" content={applySuccessMetadata.description} />
+          <meta property="og:type" content="website" />
+          <meta property="og:url" content={applySuccessMetadata.url} />
+          <meta property="og:image" content={applySuccessMetadata.image} />
+          <meta property="og:site_name" content={applySuccessMetadata.siteName} />
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:title" content={applySuccessMetadata.title} />
+          <meta name="twitter:description" content={applySuccessMetadata.description} />
+          <meta name="twitter:image" content={applySuccessMetadata.image} />
         </Helmet>
         <div className="mx-auto flex max-w-3xl flex-col items-center rounded-3xl border border-line bg-white p-12 text-center shadow-lift">
           <h1 className="text-3xl font-bold text-ink">Thanks! Your application is in.</h1>
@@ -238,8 +265,20 @@ const Apply = () => {
   return (
     <section className="bg-[#f9fafc] py-12">
       <Helmet>
-        <title>Apply — RedHat Funding</title>
-        <meta name="description" content="Complete RedHat Funding's streamlined funding application in just a few steps." />
+        <title>{applyMetadata.title}</title>
+        <meta name="description" content={applyMetadata.description} />
+        <meta name="keywords" content={applyMetadata.keywords.join(', ')} />
+        <link rel="canonical" href={applyMetadata.url} />
+        <meta property="og:title" content={applyMetadata.title} />
+        <meta property="og:description" content={applyMetadata.description} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={applyMetadata.url} />
+        <meta property="og:image" content={applyMetadata.image} />
+        <meta property="og:site_name" content={applyMetadata.siteName} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={applyMetadata.title} />
+        <meta name="twitter:description" content={applyMetadata.description} />
+        <meta name="twitter:image" content={applyMetadata.image} />
       </Helmet>
       <div className="px-4 sm:px-6">
         <FormProvider {...methods}>

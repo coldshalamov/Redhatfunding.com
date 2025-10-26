@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import api from '@/lib/api';
 import { useToast } from '@/components/ToastProvider';
 import FormField from '@/components/FormField';
+import { buildPageMetadata } from '@/lib/seo';
 
 interface Lead {
   id: number;
@@ -29,6 +30,12 @@ interface LeadResponse {
   page: number;
   page_size: number;
 }
+
+const adminMetadata = buildPageMetadata({
+  title: 'Admin',
+  description: 'Securely review, search, and export RedHat Funding applications.',
+  path: '/admin',
+});
 
 const Admin = () => {
   const [apiKey, setApiKey] = useState('');
@@ -124,7 +131,20 @@ const Admin = () => {
   return (
     <section className="bg-[#f9fafc] py-12">
       <Helmet>
-        <title>Admin — RedHat Funding</title>
+        <title>{adminMetadata.title}</title>
+        <meta name="description" content={adminMetadata.description} />
+        <meta name="keywords" content={adminMetadata.keywords.join(', ')} />
+        <link rel="canonical" href={adminMetadata.url} />
+        <meta property="og:title" content={adminMetadata.title} />
+        <meta property="og:description" content={adminMetadata.description} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={adminMetadata.url} />
+        <meta property="og:image" content={adminMetadata.image} />
+        <meta property="og:site_name" content={adminMetadata.siteName} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={adminMetadata.title} />
+        <meta name="twitter:description" content={adminMetadata.description} />
+        <meta name="twitter:image" content={adminMetadata.image} />
       </Helmet>
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 rounded-3xl border border-line bg-white p-6 shadow-lift">
         <header className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
