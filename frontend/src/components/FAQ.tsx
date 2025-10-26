@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 
 const faqs = [
   {
@@ -17,9 +18,36 @@ const faqs = [
 
 const FAQ = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  const faqJsonLd = useMemo(() => {
+    const schema = {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((faq) => ({
+        '@type': 'Question',
+        name: faq.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: faq.answer,
+        },
+      })),
+    };
+
+    return JSON.stringify(schema);
+  }, []);
 
   return (
     <section id="faq" className="bg-white py-20">
+      {isClient && (
+        <Helmet>
+          <script type="application/ld+json">{faqJsonLd}</script>
+        </Helmet>
+      )}
       <div className="mx-auto w-full max-w-4xl px-6">
         <h2 className="text-center text-3xl font-bold text-ink sm:text-4xl">Frequently asked questions</h2>
         <div className="mt-10 space-y-4">

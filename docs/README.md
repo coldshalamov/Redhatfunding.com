@@ -82,3 +82,8 @@ redhat-funding/
 ```
 
 Refer to the remaining documents in this folder for API details, branding guidance, and deployment recommendations.
+
+## SEO structured data
+
+- The frontend FAQ component injects an [FAQPage](https://schema.org/FAQPage) JSON-LD script via `react-helmet-async` during
+  client rendering to improve search engine visibility and avoid duplicate script insertion on the server.
