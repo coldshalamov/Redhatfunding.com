@@ -1,4 +1,4 @@
-import { ReactNode, MouseEvent } from 'react';
+import { ReactNode, MouseEvent, useEffect, useRef } from 'react';
 import ProgressBar from './ProgressBar';
 
 export interface StepDefinition {
@@ -32,8 +32,29 @@ const StepWizard = ({
   nextLabel = 'Next',
   backLabel = 'Back',
 }: StepWizardProps) => {
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const activeStep = steps[currentStep];
+  const stepHeading = `Step ${currentStep + 1}: ${activeStep?.title ?? ''}`;
+  const liveRegionMessage = `Currently on step ${currentStep + 1} of ${steps.length}: ${activeStep?.title ?? ''}`;
+
+  useEffect(() => {
+    const content = contentRef.current;
+    const firstInvalid = content?.querySelector<HTMLElement>('[aria-invalid="true"]');
+
+    if (firstInvalid) {
+      firstInvalid.focus();
+      return;
+    }
+
+    headingRef.current?.focus();
+  }, [currentStep]);
+
   return (
     <div className="mx-auto flex w-full max-w-5xl flex-col gap-6 rounded-3xl border border-line bg-white p-6 shadow-lift sm:p-10">
+      <div className="sr-only" aria-live="polite">
+        {liveRegionMessage}
+      </div>
       <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           <div>
@@ -69,7 +90,12 @@ const StepWizard = ({
           })}
         </ol>
       </div>
-      <div>{children}</div>
+      <div className="space-y-4">
+        <h2 ref={headingRef} tabIndex={-1} className="text-xl font-semibold text-ink sm:text-2xl">
+          {stepHeading}
+        </h2>
+        <div ref={contentRef}>{children}</div>
+      </div>
       <div className="flex flex-col gap-3 sm:flex-row sm:justify-between">
         <button
           type="button"
