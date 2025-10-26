@@ -1,4 +1,13 @@
-import { createContext, ReactNode, useCallback, useContext, useMemo, useState } from 'react';
+import {
+  createContext,
+  ReactNode,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { createPortal } from 'react-dom';
 
 interface Toast {
@@ -15,13 +24,37 @@ const ToastContext = createContext<ToastContextValue | undefined>(undefined);
 
 const ToastProvider = ({ children }: { children: ReactNode }) => {
   const [toasts, setToasts] = useState<Toast[]>([]);
-
-  const notify = useCallback((message: string, tone: Toast['tone'] = 'success') => {
-    setToasts((current) => [...current, { id: Date.now(), message, tone }]);
-  }, []);
+  const timers = useRef<Map<number, ReturnType<typeof setTimeout>>>(new Map());
 
   const remove = useCallback((id: number) => {
+    const timeoutId = timers.current.get(id);
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+      timers.current.delete(id);
+    }
     setToasts((current) => current.filter((toast) => toast.id !== id));
+  }, []);
+
+  const notify = useCallback(
+    (message: string, tone: Toast['tone'] = 'success') => {
+      const id = Date.now();
+      const timeoutId = window.setTimeout(() => {
+        remove(id);
+      }, 5000);
+      timers.current.set(id, timeoutId);
+      setToasts((current) => [...current, { id, message, tone }]);
+    },
+    [remove]
+  );
+
+  useEffect(() => {
+    const timersMap = timers.current;
+    return () => {
+      timersMap.forEach((timeoutId) => {
+        clearTimeout(timeoutId);
+      });
+      timersMap.clear();
+    };
   }, []);
 
   const value = useMemo(() => ({ notify }), [notify]);
@@ -30,7 +63,7 @@ const ToastProvider = ({ children }: { children: ReactNode }) => {
     <ToastContext.Provider value={value}>
       {children}
       {createPortal(
-        <div className="fixed inset-x-0 top-4 z-50 flex flex-col items-center gap-2">
+        <div aria-live="polite" aria-atomic="true" className="fixed inset-x-0 top-4 z-50 flex flex-col items-center gap-2">
           {toasts.map((toast) => (
             <div
               key={toast.id}
@@ -43,7 +76,7 @@ const ToastProvider = ({ children }: { children: ReactNode }) => {
               <button
                 type="button"
                 onClick={() => remove(toast.id)}
-                className="ml-4 rounded-full bg-white/20 px-2 py-1 text-xs"
+                className="ml-4 rounded-full bg-white/20 px-2 py-1 text-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-white/80"
               >
                 Dismiss
               </button>

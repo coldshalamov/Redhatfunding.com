@@ -20,6 +20,7 @@
 - Border radius: 24px (`rounded-3xl`)
 - Shadow: `0 12px 36px rgba(11,19,32,0.08)`
 - Focus ring: `outline: 2px solid color-mix(in oklab, var(--brand), white 30%)`
+- Toast notifications auto-dismiss after 5 seconds but remain dismissible with a focus-visible ring around the control for keyboard users.
 
 ## Imagery & Tone
 
