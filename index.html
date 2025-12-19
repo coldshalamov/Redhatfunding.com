@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RedHat Funding — Fast Business Capital</title>
+  <meta name="description"
+    content="Secure flexible business funding in under two minutes with RedHat Funding's streamlined application." />
+  <meta property="og:title" content="RedHat Funding" />
+  <meta property="og:description"
+    content="Secure flexible business funding in under two minutes with RedHat Funding's streamlined application." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="/social-card.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;700&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <script type="module" crossorigin src="/assets/index-B9gVXnuG.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-J0gsu3CU.css">
+  <style>
+    /* Inline call CTA to avoid touching the bundled app */
+    .call-cta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 18px 22px;
+      margin: 0 0 18px 0;
+      border-radius: 14px;
+      background: #fff;
+      border: 1px solid #f0d9d3;
+      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.06);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .call-cta__label {
+      font-family: "Inter", system-ui, -apple-system, sans-serif;
+      font-weight: 800;
+      color: #0b1020;
+      font-size: 23px;
+      letter-spacing: 0.005em;
+    }
+
+    .call-cta__number {
+      font-family: "Inter", system-ui, -apple-system, sans-serif;
+      font-weight: 700;
+      font-size: 17px;
+      color: #ffffff;
+      text-decoration: none;
+      padding: 12px 18px;
+      border-radius: 999px;
+      background: #c1111f;
+      border: 1px solid #c1111f;
+      transition: transform 120ms ease, box-shadow 120ms ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 12px 26px rgba(193, 17, 31, 0.28);
+      -webkit-font-smoothing: antialiased;
+      white-space: nowrap;
+    }
+
+    .call-cta__number::before {
+      content: "☎";
+      font-size: 15px;
+      line-height: 1;
+      opacity: 0.9;
+    }
+
+    .call-cta__number:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 30px rgba(193, 17, 31, 0.32);
+    }
+
+    .call-cta__number:active {
+      transform: translateY(0);
+    }
+
+    @media (max-width: 720px) {
+      .call-cta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      .call-cta__label {
+        font-size: 19px;
+      }
+
+      .call-cta__number {
+        width: 100%;
+        justify-content: center;
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-white font-sans text-ink">
+  <div id="root"></div>
+  <a href="/upload-documents.html" class="floating-upload-link" aria-label="Upload Documents">
+    Upload Documents
+  </a>
+  <style>
+    /* Hide any Upload Documents link in the top nav and rely on the floating button instead */
+    header nav a[href*="upload-documents"] {
+      display: none !important;
+    }
+
+    .floating-upload-link {
+      position: fixed;
+      bottom: 18px;
+      right: 18px;
+      z-index: 9999;
+      padding: 12px 16px;
+      border-radius: 999px;
+      background: #c1111f;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      font-family: "Inter", system-ui, -apple-system, sans-serif;
+      box-shadow: 0 10px 26px rgba(193, 17, 31, 0.28);
+      transition: transform 120ms ease, box-shadow 120ms ease;
+    }
+
+    .floating-upload-link:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 32px rgba(193, 17, 31, 0.32);
+    }
+
+    .floating-upload-link:active {
+      transform: translateY(0);
+    }
+  </style>
+  <!-- Phone CTA Injection Script -->
+  <script>
+    (() => {
+      const labelText = "Call or Text a Qualified Financial Specialist:";
+      const phoneDisplay = "1 (561) 758-3634";
+      const phoneHref = "tel:+15617583634";
+      const insertedFlag = "__callCtaInjected";
+
+      function buildCta() {
+        const wrap = document.createElement("div");
+        wrap.className = "call-cta";
+        wrap.setAttribute("data-call-cta", "true");
+
+        const label = document.createElement("div");
+        label.className = "call-cta__label";
+        label.textContent = labelText;
+
+        const link = document.createElement("a");
+        link.className = "call-cta__number";
+        link.href = phoneHref;
+        link.setAttribute("aria-label", `Call ${phoneDisplay}`);
+        link.textContent = phoneDisplay;
+
+        wrap.append(label, link);
+        return wrap;
+      }
+
+      function inject() {
+        if (window[insertedFlag]) return;
+        const headings = Array.from(document.querySelectorAll("h1,h2,h3,h4"));
+        const target = headings.find((h) => h.textContent.trim().toLowerCase() === "why businesses choose us");
+        if (!target) return false;
+        const parent = target.parentElement;
+        if (!parent) return false;
+        const cta = buildCta();
+        parent.parentElement.insertBefore(cta, parent);
+        window[insertedFlag] = true;
+        return true;
+      }
+
+      if (!inject()) {
+        const observer = new MutationObserver(() => {
+          if (inject()) observer.disconnect();
+        });
+        observer.observe(document.body, { childList: true, subtree: true });
+        setTimeout(() => observer.disconnect(), 8000);
+      }
+    })();
+  </script>
+</body>
+
+</html>

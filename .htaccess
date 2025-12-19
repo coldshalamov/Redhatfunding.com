@@ -1,0 +1,10 @@
+Options -Indexes
+RewriteEngine On
+
+# If the request is for an existing file or folder, serve it directly.
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# SPA fallback: send everything else to index.html
+RewriteRule ^ index.html [L]

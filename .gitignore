@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+
+# Python
+__pycache__/
+*.pyc
+
+# Build artifacts
+deploy.zip
+Deploy*.zip
+well-known.zip
+*.zip
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Agent files
+.agent/
