@@ -132,6 +132,11 @@
       display: none !important;
     }
 
+    /* Hide any floating Upload Documents button on this page */
+    .floating-upload-link {
+      display: none !important;
+    }
+
     /* Hide Upload Documents in top nav; we use the floating button instead */
     .nav a[href*="upload-documents"] {
       display: none !important;
@@ -740,7 +745,34 @@
       });
     })();
   </script>
-  <!-- Floating upload button removed from this page since we're already on the upload page -->
+  <script>
+    // Remove "Upload Documents" button ONLY on this page (if it exists / is injected).
+    document.querySelectorAll(".floating-upload-link").forEach((el) => el.remove());
+    document
+      .querySelectorAll('a[aria-label="Upload Documents"]')
+      .forEach((el) => el.remove());
+
+    // If any "Upload Documents" control points back to this same page, remove it.
+    document.querySelectorAll("a,button").forEach((el) => {
+      const label = (el.textContent || "").trim();
+      if (label !== "Upload Documents") return;
+
+      if (el.tagName === "A") {
+        const href = el.getAttribute("href") || "";
+        if (/upload-documents/i.test(href)) el.remove();
+        return;
+      }
+      el.remove();
+    });
+
+    // Normalize the submit button label.
+    document.querySelectorAll('button[type="submit"]').forEach((btn) => {
+      const label = (btn.textContent || "").trim();
+      if (label === "Generate and Submit" || label === "Generate & Submit") {
+        btn.textContent = "Submit Documents";
+      }
+    });
+  </script>
 </body>
 <script>
   // Ensure any lingering #apply links point to the real apply route.
