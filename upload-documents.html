@@ -427,7 +427,7 @@
         <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap;">
           <button type="button" class="btn btn-outline" id="preview-btn" style="padding:10px 14px;">Preview filled
             PDF</button>
-          <button type="submit" class="btn btn-primary">Generate & Submit</button>
+          <button type="submit" class="btn btn-primary">Submit Documents</button>
           <span class="note" id="upload-status"></span>
         </div>
       </form>
@@ -735,40 +735,12 @@
           console.error(err);
           status.textContent = "Error: " + err.message;
           submitBtn.disabled = false;
-          submitBtn.textContent = "Generate & Submit";
+          submitBtn.textContent = "Submit Documents";
         }
       });
     })();
   </script>
-  <a href="/upload-documents.html" class="floating-upload-link" aria-label="Upload Documents">
-    Upload Documents
-  </a>
-  <style>
-    .floating-upload-link {
-      position: fixed;
-      bottom: 18px;
-      right: 18px;
-      z-index: 9999;
-      padding: 12px 16px;
-      border-radius: 999px;
-      background: #c1111f;
-      color: #fff;
-      text-decoration: none;
-      font-weight: 700;
-      font-family: "Inter", system-ui, -apple-system, sans-serif;
-      box-shadow: 0 10px 26px rgba(193, 17, 31, 0.28);
-      transition: transform 120ms ease, box-shadow 120ms ease;
-    }
-
-    .floating-upload-link:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 14px 32px rgba(193, 17, 31, 0.32);
-    }
-
-    .floating-upload-link:active {
-      transform: translateY(0);
-    }
-  </style>
+  <!-- Floating upload button removed from this page since we're already on the upload page -->
 </body>
 <script>
   // Ensure any lingering #apply links point to the real apply route.
